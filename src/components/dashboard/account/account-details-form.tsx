@@ -13,15 +13,17 @@ import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Grid from '@mui/material/Unstable_Grid2';
-import { countries, StateOption } from '@/types/countriesData'; // Import the countries data
+import { countries, StateOption } from '@/types/countries-data'; // Updated file import to kebab case
 
 export function AccountDetailsForm(): React.JSX.Element {
   const [selectedCountry, setSelectedCountry] = useState<string>('usa');
   const [selectedState, setSelectedState] = useState<string>('alabama');
 
+  // Handle country change event and set state
   const handleCountryChange = (event: SelectChangeEvent<string>) => {
-    setSelectedCountry(event.target.value as string);
-    setSelectedState(countries[event.target.value as string][0].value); // Set default state when country changes
+    const selectedCountryValue = event.target.value;
+    setSelectedCountry(selectedCountryValue);
+    setSelectedState(countries[selectedCountryValue][0].value); // Set default state when country changes
   };
 
   return (
