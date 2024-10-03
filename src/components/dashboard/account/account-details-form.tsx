@@ -11,19 +11,29 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import Grid from '@mui/material/Unstable_Grid2';
-import { countries, StateOption } from '@/types/countries-data'; // Updated file import to kebab case
+import type { SelectChangeEvent } from '@mui/material/Select';
+import type { StateOption } from '@/types/countries-data';
+
+import { countries } from '@/types/countries-data'; // Make sure the path is correct
 
 export function AccountDetailsForm(): React.JSX.Element {
-  const [selectedCountry, setSelectedCountry] = useState<string>('usa');
-  const [selectedState, setSelectedState] = useState<string>('alabama');
+  const [selectedCountry, setSelectedCountry] = useState('usa'); // Remove type arguments
+  const [selectedState, setSelectedState] = useState('alabama'); // Remove type arguments
 
   // Handle country change event and set state
-  const handleCountryChange = (event: SelectChangeEvent<string>) => {
+  const handleCountryChange = (event: SelectChangeEvent) => {
     const selectedCountryValue = event.target.value;
     setSelectedCountry(selectedCountryValue);
-    setSelectedState(countries[selectedCountryValue][0].value); // Set default state when country changes
+    // Set default state when country changes
+    const defaultState = countries[selectedCountryValue]?.[0]?.value || '';
+    setSelectedState(defaultState);
+  };
+
+  // Handle state change (optional)
+  const handleStateChange = (event: SelectChangeEvent) => {
+    setSelectedState(event.target.value);
   };
 
   return (
@@ -58,7 +68,12 @@ export function AccountDetailsForm(): React.JSX.Element {
             <Grid md={6} xs={12}>
               <FormControl fullWidth required>
                 <InputLabel>Country</InputLabel>
-                <Select value={selectedCountry} label="Country" name="country" onChange={handleCountryChange}>
+                <Select
+                  value={selectedCountry}
+                  label="Country"
+                  name="country"
+                  onChange={handleCountryChange}
+                >
                   {Object.keys(countries).map((countryKey) => (
                     <MenuItem key={countryKey} value={countryKey}>
                       {countryKey.charAt(0).toUpperCase() + countryKey.slice(1)}
@@ -70,7 +85,13 @@ export function AccountDetailsForm(): React.JSX.Element {
             <Grid md={6} xs={12}>
               <FormControl fullWidth required>
                 <InputLabel>State</InputLabel>
-                <Select value={selectedState} label="State" name="state" variant="outlined">
+                <Select
+                  value={selectedState}
+                  label="State"
+                  name="state"
+                  onChange={handleStateChange}
+                  variant="outlined"
+                >
                   {countries[selectedCountry]?.map((option: StateOption) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
@@ -88,7 +109,12 @@ export function AccountDetailsForm(): React.JSX.Element {
             <Grid md={12} xs={12}>
               <FormControl fullWidth>
                 <InputLabel>Preferred Disaster Alert Type</InputLabel>
-                <Select defaultValue="weather" label="Preferred Disaster Alert Type" name="alertType" variant="outlined">
+                <Select
+                  defaultValue="weather"
+                  label="Preferred Disaster Alert Type"
+                  name="alertType"
+                  variant="outlined"
+                >
                   <MenuItem value="weather">Severe Weather</MenuItem>
                   <MenuItem value="earthquake">Earthquake</MenuItem>
                   <MenuItem value="flood">Flood</MenuItem>
@@ -104,4 +130,4 @@ export function AccountDetailsForm(): React.JSX.Element {
       </Card>
     </form>
   );
-}
+              }
