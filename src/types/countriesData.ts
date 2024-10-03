@@ -3,11 +3,7 @@ export interface StateOption {
     label: string;
   }
   
-  export interface CountryStates {
-    [key: string]: StateOption[];
-  }
-  
-  export const countries: CountryStates = {
+  export const countries: Record<string, StateOption[]> = {
     usa: [
       { value: 'alabama', label: 'Alabama' },
       { value: 'alaska', label: 'Alaska' },
