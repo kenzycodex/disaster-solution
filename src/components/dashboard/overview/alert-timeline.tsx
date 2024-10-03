@@ -15,12 +15,12 @@ import type { ApexOptions } from 'apexcharts';
 
 import { Chart } from '@/components/core/chart';
 
-export interface SalesProps {
+export interface AlertTimelineProps {
   chartSeries: { name: string; data: number[] }[];
   sx?: SxProps;
 }
 
-export function Sales({ chartSeries, sx }: SalesProps): React.JSX.Element {
+export function AlertTimeline({ chartSeries, sx }: AlertTimelineProps): React.JSX.Element {
   const chartOptions = useChartOptions();
 
   return (
@@ -31,7 +31,7 @@ export function Sales({ chartSeries, sx }: SalesProps): React.JSX.Element {
             Sync
           </Button>
         }
-        title="Sales"
+        title="Alerts Timeline"
       />
       <CardContent>
         <Chart height={350} options={chartOptions} series={chartSeries} type="bar" width="100%" />

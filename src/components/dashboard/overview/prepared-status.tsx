@@ -8,12 +8,12 @@ import type { SxProps } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { ListBullets as ListBulletsIcon } from '@phosphor-icons/react/dist/ssr/ListBullets';
 
-export interface TasksProgressProps {
+export interface PreparedStatusProps {
   sx?: SxProps;
   value: number;
 }
 
-export function TasksProgress({ value, sx }: TasksProgressProps): React.JSX.Element {
+export function PreparedStatus({ value, sx }: PreparedStatusProps): React.JSX.Element {
   return (
     <Card sx={sx}>
       <CardContent>
@@ -21,7 +21,7 @@ export function TasksProgress({ value, sx }: TasksProgressProps): React.JSX.Elem
           <Stack direction="row" sx={{ alignItems: 'flex-start', justifyContent: 'space-between' }} spacing={3}>
             <Stack spacing={1}>
               <Typography color="text.secondary" gutterBottom variant="overline">
-                Task Progress
+                Prepared Status
               </Typography>
               <Typography variant="h4">{value}%</Typography>
             </Stack>

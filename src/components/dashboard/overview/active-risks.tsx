@@ -9,14 +9,14 @@ import { ArrowDown as ArrowDownIcon } from '@phosphor-icons/react/dist/ssr/Arrow
 import { ArrowUp as ArrowUpIcon } from '@phosphor-icons/react/dist/ssr/ArrowUp';
 import { Users as UsersIcon } from '@phosphor-icons/react/dist/ssr/Users';
 
-export interface TotalCustomersProps {
+export interface ActiveRisksProps {
   diff?: number;
   trend: 'up' | 'down';
   sx?: SxProps;
   value: string;
 }
 
-export function TotalCustomers({ diff, trend, sx, value }: TotalCustomersProps): React.JSX.Element {
+export function ActiveRisks({ diff, trend, sx, value }: ActiveRisksProps): React.JSX.Element {
   const TrendIcon = trend === 'up' ? ArrowUpIcon : ArrowDownIcon;
   const trendColor = trend === 'up' ? 'var(--mui-palette-success-main)' : 'var(--mui-palette-error-main)';
 
@@ -27,7 +27,7 @@ export function TotalCustomers({ diff, trend, sx, value }: TotalCustomersProps):
           <Stack direction="row" sx={{ alignItems: 'flex-start', justifyContent: 'space-between' }} spacing={3}>
             <Stack spacing={1}>
               <Typography color="text.secondary" variant="overline">
-                Total Customers
+                Active Risks
               </Typography>
               <Typography variant="h4">{value}</Typography>
             </Stack>

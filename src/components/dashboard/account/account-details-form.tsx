@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -11,17 +11,19 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Grid from '@mui/material/Unstable_Grid2';
-
-const states = [
-  { value: 'alabama', label: 'Alabama' },
-  { value: 'new-york', label: 'New York' },
-  { value: 'san-francisco', label: 'San Francisco' },
-  { value: 'los-angeles', label: 'Los Angeles' },
-] as const;
+import { countries, StateOption } from '@/types/countriesData'; // Import the countries data
 
 export function AccountDetailsForm(): React.JSX.Element {
+  const [selectedCountry, setSelectedCountry] = useState<string>('usa');
+  const [selectedState, setSelectedState] = useState<string>('alabama');
+
+  const handleCountryChange = (event: SelectChangeEvent<string>) => {
+    setSelectedCountry(event.target.value as string);
+    setSelectedState(countries[event.target.value as string][0].value); // Set default state when country changes
+  };
+
   return (
     <form
       onSubmit={(event) => {
@@ -29,39 +31,45 @@ export function AccountDetailsForm(): React.JSX.Element {
       }}
     >
       <Card>
-        <CardHeader subheader="The information can be edited" title="Profile" />
+        <CardHeader subheader="The information can be edited" title="Emergency Profile" />
         <Divider />
         <CardContent>
           <Grid container spacing={3}>
-            <Grid md={6} xs={12}>
+            <Grid md={12} xs={12}>
               <FormControl fullWidth required>
-                <InputLabel>First name</InputLabel>
-                <OutlinedInput defaultValue="Sofia" label="First name" name="firstName" />
-              </FormControl>
-            </Grid>
-            <Grid md={6} xs={12}>
-              <FormControl fullWidth required>
-                <InputLabel>Last name</InputLabel>
-                <OutlinedInput defaultValue="Rivers" label="Last name" name="lastName" />
+                <InputLabel>Full Name</InputLabel>
+                <OutlinedInput defaultValue="John Doe" label="Full Name" name="fullName" />
               </FormControl>
             </Grid>
             <Grid md={6} xs={12}>
               <FormControl fullWidth required>
-                <InputLabel>Email address</InputLabel>
-                <OutlinedInput defaultValue="sofia@devias.io" label="Email address" name="email" />
+                <InputLabel>Email Address</InputLabel>
+                <OutlinedInput defaultValue="john.doe@example.com" label="Email Address" name="email" />
               </FormControl>
             </Grid>
             <Grid md={6} xs={12}>
-              <FormControl fullWidth>
-                <InputLabel>Phone number</InputLabel>
-                <OutlinedInput label="Phone number" name="phone" type="tel" />
+              <FormControl fullWidth required>
+                <InputLabel>Phone Number (Emergency Contact)</InputLabel>
+                <OutlinedInput label="Phone Number" name="phone" type="tel" defaultValue="+1 555-555-5555" />
               </FormControl>
             </Grid>
             <Grid md={6} xs={12}>
-              <FormControl fullWidth>
+              <FormControl fullWidth required>
+                <InputLabel>Country</InputLabel>
+                <Select value={selectedCountry} label="Country" name="country" onChange={handleCountryChange}>
+                  {Object.keys(countries).map((countryKey) => (
+                    <MenuItem key={countryKey} value={countryKey}>
+                      {countryKey.charAt(0).toUpperCase() + countryKey.slice(1)}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid md={6} xs={12}>
+              <FormControl fullWidth required>
                 <InputLabel>State</InputLabel>
-                <Select defaultValue="New York" label="State" name="state" variant="outlined">
-                  {states.map((option) => (
+                <Select value={selectedState} label="State" name="state" variant="outlined">
+                  {countries[selectedCountry]?.map((option: StateOption) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -70,16 +78,26 @@ export function AccountDetailsForm(): React.JSX.Element {
               </FormControl>
             </Grid>
             <Grid md={6} xs={12}>
-              <FormControl fullWidth>
+              <FormControl fullWidth required>
                 <InputLabel>City</InputLabel>
-                <OutlinedInput label="City" />
+                <OutlinedInput label="City" defaultValue="New York" />
+              </FormControl>
+            </Grid>
+            <Grid md={12} xs={12}>
+              <FormControl fullWidth>
+                <InputLabel>Preferred Disaster Alert Type</InputLabel>
+                <Select defaultValue="weather" label="Preferred Disaster Alert Type" name="alertType" variant="outlined">
+                  <MenuItem value="weather">Severe Weather</MenuItem>
+                  <MenuItem value="earthquake">Earthquake</MenuItem>
+                  <MenuItem value="flood">Flood</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
           </Grid>
         </CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button variant="contained">Save details</Button>
+          <Button variant="contained">Save Emergency Details</Button>
         </CardActions>
       </Card>
     </form>

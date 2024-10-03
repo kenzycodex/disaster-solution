@@ -18,18 +18,18 @@ import { Chart } from '@/components/core/chart';
 
 const iconMapping = { Desktop: DesktopIcon, Tablet: DeviceTabletIcon, Phone: PhoneIcon } as Record<string, Icon>;
 
-export interface TrafficProps {
+export interface DangerProps {
   chartSeries: number[];
   labels: string[];
   sx?: SxProps;
 }
 
-export function Traffic({ chartSeries, labels, sx }: TrafficProps): React.JSX.Element {
+export function Danger({ chartSeries, labels, sx }: DangerProps): React.JSX.Element {
   const chartOptions = useChartOptions(labels);
 
   return (
     <Card sx={sx}>
-      <CardHeader title="Traffic source" />
+      <CardHeader title="Danger source" />
       <CardContent>
         <Stack spacing={2}>
           <Chart height={300} options={chartOptions} series={chartSeries} type="donut" width="100%" />
