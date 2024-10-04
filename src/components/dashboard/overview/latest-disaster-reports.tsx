@@ -15,49 +15,55 @@ import TableRow from '@mui/material/TableRow';
 import { ArrowRight as ArrowRightIcon } from '@phosphor-icons/react/dist/ssr/ArrowRight';
 import dayjs from 'dayjs';
 
-const statusMap = {
-  pending: { label: 'Pending', color: 'warning' },
-  delivered: { label: 'Delivered', color: 'success' },
-  refunded: { label: 'Refunded', color: 'error' },
+// Status map for disaster severity
+const severityMap = {
+  mild: { label: 'Mild', color: 'warning' },
+  moderate: { label: 'Moderate', color: 'info' },
+  severe: { label: 'Severe', color: 'error' },
+  critical: { label: 'Critical', color: 'error' },
 } as const;
 
-export interface Order {
+// Disaster report interface
+export interface DisasterReport {
   id: string;
-  customer: { name: string };
-  amount: number;
-  status: 'pending' | 'delivered' | 'refunded';
-  createdAt: Date;
+  location: string;
+  description: string;
+  severity: 'mild' | 'moderate' | 'severe' | 'critical';
+  reportedAt: Date;
 }
 
-export interface LatestOrdersProps {
-  orders?: Order[];
+export interface LatestDisasterReportsProps {
+  reports?: DisasterReport[];
   sx?: SxProps;
 }
 
-export function LatestOrders({ orders = [], sx }: LatestOrdersProps): React.JSX.Element {
+// Component to display latest disaster reports
+export function LatestDisasterReports({ reports = [], sx }: LatestDisasterReportsProps): React.JSX.Element {
   return (
     <Card sx={sx}>
-      <CardHeader title="Latest orders" />
+      <CardHeader title="Latest Disaster Reports" />
       <Divider />
       <Box sx={{ overflowX: 'auto' }}>
         <Table sx={{ minWidth: 800 }}>
           <TableHead>
             <TableRow>
-              <TableCell>Order</TableCell>
-              <TableCell>Customer</TableCell>
-              <TableCell sortDirection="desc">Date</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell>Report ID</TableCell>
+              <TableCell>Location</TableCell>
+              <TableCell>Description</TableCell>
+              <TableCell sortDirection="desc">Reported Date</TableCell>
+              <TableCell>Severity</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order) => {
-              const { label, color } = statusMap[order.status] ?? { label: 'Unknown', color: 'default' };
+            {reports.map((report) => {
+              const { label, color } = severityMap[report.severity] ?? { label: 'Unknown', color: 'default' };
 
               return (
-                <TableRow hover key={order.id}>
-                  <TableCell>{order.id}</TableCell>
-                  <TableCell>{order.customer.name}</TableCell>
-                  <TableCell>{dayjs(order.createdAt).format('MMM D, YYYY')}</TableCell>
+                <TableRow hover key={report.id}>
+                  <TableCell>{report.id}</TableCell>
+                  <TableCell>{report.location}</TableCell>
+                  <TableCell>{report.description}</TableCell>
+                  <TableCell>{dayjs(report.reportedAt).format('MMM D, YYYY')}</TableCell>
                   <TableCell>
                     <Chip color={color} label={label} size="small" />
                   </TableCell>
