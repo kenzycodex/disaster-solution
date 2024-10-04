@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -13,15 +13,29 @@ import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Unstable_Grid2';
+import type { SelectChangeEvent } from '@mui/material/Select';
+import type { StateOption } from '@/types/countries-data';
 
-const states = [
-  { value: 'alabama', label: 'Alabama' },
-  { value: 'new-york', label: 'New York' },
-  { value: 'san-francisco', label: 'San Francisco' },
-  { value: 'los-angeles', label: 'Los Angeles' },
-] as const;
+import { countries } from '@/types/countries-data'; // Make sure the path is correct
 
 export function AccountDetailsForm(): React.JSX.Element {
+  const [selectedCountry, setSelectedCountry] = useState('usa'); // Remove type arguments
+  const [selectedState, setSelectedState] = useState('alabama'); // Remove type arguments
+
+  // Handle country change event and set state
+  const handleCountryChange = (event: SelectChangeEvent) => {
+    const selectedCountryValue = event.target.value;
+    setSelectedCountry(selectedCountryValue);
+    // Set default state when country changes
+    const defaultState = countries[selectedCountryValue]?.[0]?.value || '';
+    setSelectedState(defaultState);
+  };
+
+  // Handle state change (optional)
+  const handleStateChange = (event: SelectChangeEvent) => {
+    setSelectedState(event.target.value);
+  };
+
   return (
     <form
       onSubmit={(event) => {
@@ -29,39 +43,56 @@ export function AccountDetailsForm(): React.JSX.Element {
       }}
     >
       <Card>
-        <CardHeader subheader="The information can be edited" title="Profile" />
+        <CardHeader subheader="The information can be edited" title="Emergency Profile" />
         <Divider />
         <CardContent>
           <Grid container spacing={3}>
-            <Grid md={6} xs={12}>
+            <Grid md={12} xs={12}>
               <FormControl fullWidth required>
-                <InputLabel>First name</InputLabel>
-                <OutlinedInput defaultValue="Sofia" label="First name" name="firstName" />
-              </FormControl>
-            </Grid>
-            <Grid md={6} xs={12}>
-              <FormControl fullWidth required>
-                <InputLabel>Last name</InputLabel>
-                <OutlinedInput defaultValue="Rivers" label="Last name" name="lastName" />
+                <InputLabel>Full Name</InputLabel>
+                <OutlinedInput defaultValue="John Doe" label="Full Name" name="fullName" />
               </FormControl>
             </Grid>
             <Grid md={6} xs={12}>
               <FormControl fullWidth required>
-                <InputLabel>Email address</InputLabel>
-                <OutlinedInput defaultValue="sofia@devias.io" label="Email address" name="email" />
+                <InputLabel>Email Address</InputLabel>
+                <OutlinedInput defaultValue="john.doe@example.com" label="Email Address" name="email" />
               </FormControl>
             </Grid>
             <Grid md={6} xs={12}>
-              <FormControl fullWidth>
-                <InputLabel>Phone number</InputLabel>
-                <OutlinedInput label="Phone number" name="phone" type="tel" />
+              <FormControl fullWidth required>
+                <InputLabel>Phone Number (Emergency Contact)</InputLabel>
+                <OutlinedInput label="Phone Number" name="phone" type="tel" defaultValue="+1 555-555-5555" />
               </FormControl>
             </Grid>
             <Grid md={6} xs={12}>
-              <FormControl fullWidth>
+              <FormControl fullWidth required>
+                <InputLabel>Country</InputLabel>
+                <Select
+                  value={selectedCountry}
+                  label="Country"
+                  name="country"
+                  onChange={handleCountryChange}
+                >
+                  {Object.keys(countries).map((countryKey) => (
+                    <MenuItem key={countryKey} value={countryKey}>
+                      {countryKey.charAt(0).toUpperCase() + countryKey.slice(1)}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid md={6} xs={12}>
+              <FormControl fullWidth required>
                 <InputLabel>State</InputLabel>
-                <Select defaultValue="New York" label="State" name="state" variant="outlined">
-                  {states.map((option) => (
+                <Select
+                  value={selectedState}
+                  label="State"
+                  name="state"
+                  onChange={handleStateChange}
+                  variant="outlined"
+                >
+                  {countries[selectedCountry]?.map((option: StateOption) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -70,18 +101,33 @@ export function AccountDetailsForm(): React.JSX.Element {
               </FormControl>
             </Grid>
             <Grid md={6} xs={12}>
-              <FormControl fullWidth>
+              <FormControl fullWidth required>
                 <InputLabel>City</InputLabel>
-                <OutlinedInput label="City" />
+                <OutlinedInput label="City" defaultValue="New York" />
+              </FormControl>
+            </Grid>
+            <Grid md={12} xs={12}>
+              <FormControl fullWidth>
+                <InputLabel>Preferred Disaster Alert Type</InputLabel>
+                <Select
+                  defaultValue="weather"
+                  label="Preferred Disaster Alert Type"
+                  name="alertType"
+                  variant="outlined"
+                >
+                  <MenuItem value="weather">Severe Weather</MenuItem>
+                  <MenuItem value="earthquake">Earthquake</MenuItem>
+                  <MenuItem value="flood">Flood</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
           </Grid>
         </CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button variant="contained">Save details</Button>
+          <Button variant="contained">Save Emergency Details</Button>
         </CardActions>
       </Card>
     </form>
   );
-}
+              }

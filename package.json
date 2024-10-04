@@ -1,12 +1,12 @@
 {
-  "name": "material-kit-react",
+  "name": "disaster-solution",
   "version": "4.0.0",
-  "author": "Devias",
+  "author": "Kenzy & Dennis",
   "licence": "MIT",
-  "homepage": "https://devias.io",
   "private": false,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -H 0.0.0.0",
+    "prebuild": "npm run typecheck && npm run lint && npm run format:write",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
