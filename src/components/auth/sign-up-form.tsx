@@ -22,21 +22,33 @@ import { paths } from '@/paths';
 import { authClient } from '@/lib/auth/client';
 import { useUser } from '@/hooks/use-user';
 
+// Updated schema with more fields
 const schema = zod.object({
   firstName: zod.string().min(1, { message: 'First name is required' }),
   lastName: zod.string().min(1, { message: 'Last name is required' }),
   email: zod.string().min(1, { message: 'Email is required' }).email(),
   password: zod.string().min(6, { message: 'Password should be at least 6 characters' }),
+  phoneNumber: zod.string().min(1, { message: 'Phone number is required' }),
+  organization: zod.string().optional(), // Organization can be optional
+  address: zod.string().min(1, { message: 'Address is required' }),
   terms: zod.boolean().refine((value) => value, 'You must accept the terms and conditions'),
 });
 
 type Values = zod.infer<typeof schema>;
 
-const defaultValues = { firstName: '', lastName: '', email: '', password: '', terms: false } satisfies Values;
+const defaultValues = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  phoneNumber: '',
+  organization: '',
+  address: '',
+  terms: false,
+} satisfies Values;
 
 export function SignUpForm(): React.JSX.Element {
   const router = useRouter();
-
   const { checkSession } = useUser();
 
   const [isPending, setIsPending] = React.useState<boolean>(false);
@@ -98,10 +110,10 @@ export function SignUpForm(): React.JSX.Element {
             control={control}
             name="lastName"
             render={({ field }) => (
-              <FormControl error={Boolean(errors.firstName)}>
+              <FormControl error={Boolean(errors.lastName)}>
                 <InputLabel>Last name</InputLabel>
                 <OutlinedInput {...field} label="Last name" />
-                {errors.firstName ? <FormHelperText>{errors.firstName.message}</FormHelperText> : null}
+                {errors.lastName ? <FormHelperText>{errors.lastName.message}</FormHelperText> : null}
               </FormControl>
             )}
           />
@@ -124,6 +136,41 @@ export function SignUpForm(): React.JSX.Element {
                 <InputLabel>Password</InputLabel>
                 <OutlinedInput {...field} label="Password" type="password" />
                 {errors.password ? <FormHelperText>{errors.password.message}</FormHelperText> : null}
+              </FormControl>
+            )}
+          />
+          {/* New Phone Number Input */}
+          <Controller
+            control={control}
+            name="phoneNumber"
+            render={({ field }) => (
+              <FormControl error={Boolean(errors.phoneNumber)}>
+                <InputLabel>Phone Number</InputLabel>
+                <OutlinedInput {...field} label="Phone Number" />
+                {errors.phoneNumber ? <FormHelperText>{errors.phoneNumber.message}</FormHelperText> : null}
+              </FormControl>
+            )}
+          />
+          {/* New Organization Input */}
+          <Controller
+            control={control}
+            name="organization"
+            render={({ field }) => (
+              <FormControl error={Boolean(errors.organization)}>
+                <InputLabel>Organization (optional)</InputLabel>
+                <OutlinedInput {...field} label="Organization" />
+              </FormControl>
+            )}
+          />
+          {/* New Address Input */}
+          <Controller
+            control={control}
+            name="address"
+            render={({ field }) => (
+              <FormControl error={Boolean(errors.address)}>
+                <InputLabel>Address</InputLabel>
+                <OutlinedInput {...field} label="Address" />
+                {errors.address ? <FormHelperText>{errors.address.message}</FormHelperText> : null}
               </FormControl>
             )}
           />
@@ -150,7 +197,11 @@ export function SignUpForm(): React.JSX.Element {
           </Button>
         </Stack>
       </form>
-      <Alert color="warning">Created users are not persisted</Alert>
+      {/* Updated Alert Message */}
+      <Alert color="info">
+        Thank you for signing up! By joining, you are contributing to a safer and more prepared community in the face
+        of disasters.
+      </Alert>
     </Stack>
   );
 }
