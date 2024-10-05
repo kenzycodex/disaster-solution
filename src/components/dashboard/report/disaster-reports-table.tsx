@@ -22,31 +22,31 @@ function noop(): void {
   // do nothing
 }
 
-export interface Customer {
+export interface DisasterReport {
   id: string;
-  avatar: string;
-  name: string;
-  email: string;
-  address: { city: string; state: string; country: string; street: string };
-  phone: string;
-  createdAt: Date;
+  reportTitle: string;
+  icon: string; // Replacing avatar with a relevant icon or image related to the report
+  disasterType: string;
+  location: string; // Added location field
+  status: string;
+  submittedOn: Date;
 }
 
-interface CustomersTableProps {
+interface DisasterReportsTableProps {
   count?: number;
   page?: number;
-  rows?: Customer[];
+  rows?: DisasterReport[];
   rowsPerPage?: number;
 }
 
-export function CustomersTable({
+export function DisasterReportsTable({
   count = 0,
   rows = [],
   page = 0,
   rowsPerPage = 0,
-}: CustomersTableProps): React.JSX.Element {
+}: DisasterReportsTableProps): React.JSX.Element {
   const rowIds = React.useMemo(() => {
-    return rows.map((customer) => customer.id);
+    return rows.map((report) => report.id);
   }, [rows]);
 
   const { selectAll, deselectAll, selectOne, deselectOne, selected } = useSelection(rowIds);
@@ -73,11 +73,11 @@ export function CustomersTable({
                   }}
                 />
               </TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Location</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>Signed Up</TableCell>
+              <TableCell>Report Title</TableCell>
+              <TableCell>Disaster Type</TableCell>
+              <TableCell>Location</TableCell> {/* New column for location */}
+              <TableCell>Status</TableCell>
+              <TableCell>Submitted On</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -100,16 +100,14 @@ export function CustomersTable({
                   </TableCell>
                   <TableCell>
                     <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
-                      <Avatar src={row.avatar} />
-                      <Typography variant="subtitle2">{row.name}</Typography>
+                      <Avatar>{row.icon}</Avatar> {/* Icon related to the disaster report */}
+                      <Typography variant="subtitle2">{row.reportTitle}</Typography>
                     </Stack>
                   </TableCell>
-                  <TableCell>{row.email}</TableCell>
-                  <TableCell>
-                    {row.address.city}, {row.address.state}, {row.address.country}
-                  </TableCell>
-                  <TableCell>{row.phone}</TableCell>
-                  <TableCell>{dayjs(row.createdAt).format('MMM D, YYYY')}</TableCell>
+                  <TableCell>{row.disasterType}</TableCell>
+                  <TableCell>{row.location}</TableCell> {/* Display location */}
+                  <TableCell>{row.status}</TableCell>
+                  <TableCell>{dayjs(row.submittedOn).format('MMM D, YYYY')}</TableCell>
                 </TableRow>
               );
             })}

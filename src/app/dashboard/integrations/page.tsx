@@ -9,6 +9,11 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { Download as DownloadIcon } from '@phosphor-icons/react/dist/ssr/Download';
 import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
 import { Upload as UploadIcon } from '@phosphor-icons/react/dist/ssr/Upload';
+import { ShieldWarning as ShieldIcon } from '@phosphor-icons/react/dist/ssr/ShieldWarning';
+import { FirstAid as FirstAidIcon } from '@phosphor-icons/react/dist/ssr/FirstAid';
+import { Tornado as TornadoIcon } from '@phosphor-icons/react/dist/ssr/Tornado';
+import { WaterDrop as WaterDropIcon } from '@phosphor-icons/react/dist/ssr/WaterDrop';
+import { Fire as FireIcon } from '@phosphor-icons/react/dist/ssr/Fire';
 import dayjs from 'dayjs';
 
 import { config } from '@/config';
@@ -16,56 +21,89 @@ import { IntegrationCard } from '@/components/dashboard/integrations/integration
 import type { Integration } from '@/components/dashboard/integrations/integrations-card';
 import { CompaniesFilters } from '@/components/dashboard/integrations/integrations-filters';
 
-export const metadata = { title: `Integrations | Dashboard | ${config.site.name}` } satisfies Metadata;
+export const metadata = { title: `Resources | Disaster Preparedness | ${config.site.name}` } satisfies Metadata;
 
-const integrations = [
+// Updated resources data
+const resources = [
   {
-    id: 'INTEG-006',
-    title: 'Dropbox',
-    description: 'Dropbox is a file hosting service that offers cloud storage, file synchronization, a personal cloud.',
-    logo: '/assets/logo-dropbox.png',
-    installs: 594,
-    updatedAt: dayjs().subtract(12, 'minute').toDate(),
+    id: 'RESOURCE-001',
+    title: 'Emergency Kit Preparation',
+    description: 'Guidelines on assembling a complete emergency kit with essential supplies for disaster survival.',
+    logo: <FirstAidIcon fontSize="var(--icon-fontSize-lg)" />, // Use a meaningful icon
+    installs: 1024,
+    updatedAt: dayjs().subtract(15, 'minute').toDate(),
   },
   {
-    id: 'INTEG-005',
-    title: 'Medium Corporation',
-    description: 'Medium is an online publishing platform developed by Evan Williams, and launched in August 2012.',
-    logo: '/assets/logo-medium.png',
-    installs: 625,
-    updatedAt: dayjs().subtract(43, 'minute').subtract(1, 'hour').toDate(),
+    id: 'RESOURCE-002',
+    title: 'Earthquake Safety Tips',
+    description: 'Instructions for staying safe during and after an earthquake, including evacuation plans.',
+    logo: <ShieldIcon fontSize="var(--icon-fontSize-lg)" />, // Use an icon for safety
+    installs: 825,
+    updatedAt: dayjs().subtract(1, 'hour').toDate(),
   },
   {
-    id: 'INTEG-004',
-    title: 'Slack',
-    description: 'Slack is a cloud-based set of team collaboration tools and services, founded by Stewart Butterfield.',
-    logo: '/assets/logo-slack.png',
-    installs: 857,
-    updatedAt: dayjs().subtract(50, 'minute').subtract(3, 'hour').toDate(),
+    id: 'RESOURCE-003',
+    title: 'Flood Preparedness Guide',
+    description: 'Learn how to prepare for floods, including creating evacuation routes and securing your home.',
+    logo: <WaterDropIcon fontSize="var(--icon-fontSize-lg)" />, // Use an icon for flood-related information
+    installs: 903,
+    updatedAt: dayjs().subtract(2, 'hour').toDate(),
   },
   {
-    id: 'INTEG-003',
-    title: 'Lyft',
-    description: 'Lyft is an on-demand transportation company based in San Francisco, California.',
-    logo: '/assets/logo-lyft.png',
-    installs: 406,
-    updatedAt: dayjs().subtract(7, 'minute').subtract(4, 'hour').subtract(1, 'day').toDate(),
+    id: 'RESOURCE-004',
+    title: 'Fire Safety Protocol',
+    description: 'Steps to take to prevent fires and stay safe during a fire-related emergency.',
+    logo: <FireIcon fontSize="var(--icon-fontSize-lg)" />, // Use fire icon
+    installs: 740,
+    updatedAt: dayjs().subtract(1, 'day').toDate(),
   },
   {
-    id: 'INTEG-002',
-    title: 'GitHub',
-    description: 'GitHub is a web-based hosting service for version control of code using Git.',
-    logo: '/assets/logo-github.png',
-    installs: 835,
-    updatedAt: dayjs().subtract(31, 'minute').subtract(4, 'hour').subtract(5, 'day').toDate(),
+    id: 'RESOURCE-005',
+    title: 'Hurricane Preparedness Plan',
+    description: 'A complete plan for preparing your home and family for hurricanes, including shelter options.',
+    logo: <TornadoIcon fontSize="var(--icon-fontSize-lg)" />, // Use tornado icon for hurricane context
+    installs: 610,
+    updatedAt: dayjs().subtract(3, 'day').toDate(),
   },
   {
-    id: 'INTEG-001',
-    title: 'Squarespace',
-    description: 'Squarespace provides software as a service for website building and hosting. Headquartered in NYC.',
-    logo: '/assets/logo-squarespace.png',
-    installs: 435,
-    updatedAt: dayjs().subtract(25, 'minute').subtract(6, 'hour').subtract(6, 'day').toDate(),
+    id: 'RESOURCE-006',
+    title: 'First Aid Procedures',
+    description: 'Basic first aid procedures to follow during emergencies, including CPR and wound care.',
+    logo: <FirstAidIcon fontSize="var(--icon-fontSize-lg)" />, // Use first aid icon
+    installs: 453,
+    updatedAt: dayjs().subtract(5, 'day').toDate(),
+  },
+  {
+    id: 'RESOURCE-007',
+    title: 'Tornado Safety Measures',
+    description: 'Detailed measures to take before, during, and after a tornado, including safe zones and warning signs.',
+    logo: <TornadoIcon fontSize="var(--icon-fontSize-lg)" />, // Use tornado icon
+    installs: 390,
+    updatedAt: dayjs().subtract(10, 'day').toDate(),
+  },
+  {
+    id: 'RESOURCE-008',
+    title: 'Drought Preparedness',
+    description: 'Instructions on how to conserve water and prepare your household for extended periods of drought.',
+    logo: <WaterDropIcon fontSize="var(--icon-fontSize-lg)" />, // Use water icon
+    installs: 220,
+    updatedAt: dayjs().subtract(15, 'day').toDate(),
+  },
+  {
+    id: 'RESOURCE-009',
+    title: 'Wildfire Evacuation Plan',
+    description: 'Create an evacuation plan to stay safe during wildfires and avoid fire hazards.',
+    logo: <FireIcon fontSize="var(--icon-fontSize-lg)" />, // Use fire icon
+    installs: 505,
+    updatedAt: dayjs().subtract(20, 'day').toDate(),
+  },
+  {
+    id: 'RESOURCE-010',
+    title: 'Pandemic Safety Protocols',
+    description: 'Health and safety protocols to follow during pandemics, including hygiene and social distancing measures.',
+    logo: <ShieldIcon fontSize="var(--icon-fontSize-lg)" />, // Use shield icon for safety
+    installs: 320,
+    updatedAt: dayjs().subtract(30, 'day').toDate(),
   },
 ] satisfies Integration[];
 
@@ -74,27 +112,27 @@ export default function Page(): React.JSX.Element {
     <Stack spacing={3}>
       <Stack direction="row" spacing={3}>
         <Stack spacing={1} sx={{ flex: '1 1 auto' }}>
-          <Typography variant="h4">Integrations</Typography>
+          <Typography variant="h4">Disaster Preparedness Resources</Typography>
           <Stack sx={{ alignItems: 'center' }} direction="row" spacing={1}>
             <Button color="inherit" startIcon={<UploadIcon fontSize="var(--icon-fontSize-md)" />}>
-              Import
+              Upload Resource
             </Button>
             <Button color="inherit" startIcon={<DownloadIcon fontSize="var(--icon-fontSize-md)" />}>
-              Export
+              Download All
             </Button>
           </Stack>
         </Stack>
         <div>
           <Button startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)" />} variant="contained">
-            Add
+            Add New Resource
           </Button>
         </div>
       </Stack>
       <CompaniesFilters />
       <Grid container spacing={3}>
-        {integrations.map((integration) => (
-          <Grid key={integration.id} lg={4} md={6} xs={12}>
-            <IntegrationCard integration={integration} />
+        {resources.map((resource) => (
+          <Grid key={resource.id} lg={4} md={6} xs={12}>
+            <IntegrationCard integration={resource} />
           </Grid>
         ))}
       </Grid>

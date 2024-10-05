@@ -67,10 +67,10 @@ export function SideNav(): React.JSX.Element {
         >
           <Box sx={{ flex: '1 1 auto' }}>
             <Typography color="var(--mui-palette-neutral-400)" variant="body2">
-              Workspace
+              Personal
             </Typography>
             <Typography color="inherit" variant="subtitle1">
-              Devias
+              DistoSpace
             </Typography>
           </Box>
           <CaretUpDownIcon />
@@ -87,7 +87,7 @@ export function SideNav(): React.JSX.Element {
             Need more features?
           </Typography>
           <Typography color="var(--mui-palette-neutral-400)" variant="body2">
-            Check out our Pro solution template.
+            Subscribe to Pro.
           </Typography>
         </div>
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -102,7 +102,7 @@ export function SideNav(): React.JSX.Element {
           component="a"
           endIcon={<ArrowSquareUpRightIcon fontSize="var(--icon-fontSize-md)" />}
           fullWidth
-          href="https://material-kit-pro-react.devias.io/"
+          href="#"
           sx={{ mt: 2 }}
           target="_blank"
           variant="contained"
