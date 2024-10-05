@@ -12,9 +12,11 @@ import { Upload as UploadIcon } from '@phosphor-icons/react/dist/ssr/Upload';
 import { ShieldWarning as ShieldIcon } from '@phosphor-icons/react/dist/ssr/ShieldWarning';
 import { FirstAid as FirstAidIcon } from '@phosphor-icons/react/dist/ssr/FirstAid';
 import { Tornado as TornadoIcon } from '@phosphor-icons/react/dist/ssr/Tornado';
-import { WaterDrop as WaterDropIcon } from '@phosphor-icons/react/dist/ssr/WaterDrop';
 import { Fire as FireIcon } from '@phosphor-icons/react/dist/ssr/Fire';
 import dayjs from 'dayjs';
+
+// Importing WaterDrop icon from react-icons
+import { RiWaterDropLine as WaterDropIcon } from 'react-icons/ri';
 
 import { config } from '@/config';
 import { IntegrationCard } from '@/components/dashboard/integrations/integrations-card';
@@ -45,7 +47,7 @@ const resources = [
     id: 'RESOURCE-003',
     title: 'Flood Preparedness Guide',
     description: 'Learn how to prepare for floods, including creating evacuation routes and securing your home.',
-    logo: <WaterDropIcon fontSize="var(--icon-fontSize-lg)" />, // Use an icon for flood-related information
+    logo: <WaterDropIcon fontSize="var(--icon-fontSize-lg)" />, // Replaced with react-icons WaterDrop
     installs: 903,
     updatedAt: dayjs().subtract(2, 'hour').toDate(),
   },
@@ -85,7 +87,7 @@ const resources = [
     id: 'RESOURCE-008',
     title: 'Drought Preparedness',
     description: 'Instructions on how to conserve water and prepare your household for extended periods of drought.',
-    logo: <WaterDropIcon fontSize="var(--icon-fontSize-lg)" />, // Use water icon
+    logo: <WaterDropIcon fontSize="var(--icon-fontSize-lg)" />, // Replaced with react-icons WaterDrop
     installs: 220,
     updatedAt: dayjs().subtract(15, 'day').toDate(),
   },
