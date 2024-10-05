@@ -8,15 +8,17 @@ import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 import type { SxProps } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import type { Icon } from '@phosphor-icons/react/dist/lib/types';
-import { Desktop as DesktopIcon } from '@phosphor-icons/react/dist/ssr/Desktop';
-import { DeviceTablet as DeviceTabletIcon } from '@phosphor-icons/react/dist/ssr/DeviceTablet';
-import { Phone as PhoneIcon } from '@phosphor-icons/react/dist/ssr/Phone';
+import { MdOutlineWaterDrop } from 'react-icons/md'; // Flood Icon
+import { GiEarthCrack, GiFire } from 'react-icons/gi'; // Earthquake and Wildfire Icons
 import type { ApexOptions } from 'apexcharts';
 
 import { Chart } from '@/components/core/chart';
 
-const iconMapping = { Desktop: DesktopIcon, Tablet: DeviceTabletIcon, Phone: PhoneIcon } as Record<string, Icon>;
+const iconMapping = {
+  Flood: MdOutlineWaterDrop,
+  Earthquakes: GiEarthCrack,
+  Wildfire: GiFire,
+} as Record<string, React.ComponentType>;
 
 export interface DangerProps {
   chartSeries: number[];
@@ -29,7 +31,7 @@ export function Danger({ chartSeries, labels, sx }: DangerProps): React.JSX.Elem
 
   return (
     <Card sx={sx}>
-      <CardHeader title="Danger source" />
+      <CardHeader title="Danger Sources" />
       <CardContent>
         <Stack spacing={2}>
           <Chart height={300} options={chartOptions} series={chartSeries} type="donut" width="100%" />
@@ -40,7 +42,7 @@ export function Danger({ chartSeries, labels, sx }: DangerProps): React.JSX.Elem
 
               return (
                 <Stack key={label} spacing={1} sx={{ alignItems: 'center' }}>
-                  {Icon ? <Icon fontSize="var(--icon-fontSize-lg)" /> : null}
+                  {Icon ? <Icon fontSize="40px" color={label === 'Flood' ? 'blue' : label === 'Earthquakes' ? 'orange' : 'red'} /> : null}
                   <Typography variant="h6">{label}</Typography>
                   <Typography color="text.secondary" variant="subtitle2">
                     {item}%
