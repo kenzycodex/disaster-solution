@@ -33,6 +33,10 @@ export function Notifications(): React.JSX.Element {
                   <FormControlLabel control={<Checkbox defaultChecked />} label="Severe Weather Alerts" />
                   <FormControlLabel control={<Checkbox />} label="Earthquake Alerts" />
                   <FormControlLabel control={<Checkbox />} label="Emergency Resource Updates" />
+                  {/* New alert types */}
+                  <FormControlLabel control={<Checkbox />} label="Flood Alerts" />
+                  <FormControlLabel control={<Checkbox />} label="Wildfire Alerts" />
+                  <FormControlLabel control={<Checkbox />} label="Evacuation Orders" />
                 </FormGroup>
               </Stack>
             </Grid>
@@ -43,6 +47,10 @@ export function Notifications(): React.JSX.Element {
                   <FormControlLabel control={<Checkbox defaultChecked />} label="Severe Weather Alerts" />
                   <FormControlLabel control={<Checkbox />} label="Earthquake Alerts" />
                   <FormControlLabel control={<Checkbox />} label="Emergency Resource Updates" />
+                  {/* New alert types */}
+                  <FormControlLabel control={<Checkbox />} label="Flood Alerts" />
+                  <FormControlLabel control={<Checkbox />} label="Wildfire Alerts" />
+                  <FormControlLabel control={<Checkbox />} label="Evacuation Orders" />
                 </FormGroup>
               </Stack>
             </Grid>
