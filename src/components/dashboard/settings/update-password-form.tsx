@@ -11,10 +11,8 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Stack from '@mui/material/Stack';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
 
-export function UpdateAccountForm(): React.JSX.Element {
+export function UpdatePasswordForm(): React.JSX.Element {
   return (
     <form
       onSubmit={(event) => {
@@ -22,39 +20,18 @@ export function UpdateAccountForm(): React.JSX.Element {
       }}
     >
       <Card>
-        <CardHeader subheader="Manage your account settings" title="Account Settings" />
+        <CardHeader subheader="Update password" title="Password" />
         <Divider />
         <CardContent>
           <Stack spacing={3} sx={{ maxWidth: 'sm' }}>
-            {/* Email Field */}
-            <FormControl fullWidth>
-              <InputLabel>Email</InputLabel>
-              <OutlinedInput label="Email" name="email" type="email" />
-            </FormControl>
-
-            {/* Phone Number Field */}
-            <FormControl fullWidth>
-              <InputLabel>Phone Number</InputLabel>
-              <OutlinedInput label="Phone Number" name="phoneNumber" type="tel" />
-            </FormControl>
-
-            {/* Password Field */}
             <FormControl fullWidth>
               <InputLabel>Password</InputLabel>
               <OutlinedInput label="Password" name="password" type="password" />
             </FormControl>
-
-            {/* Confirm Password Field */}
             <FormControl fullWidth>
-              <InputLabel>Confirm Password</InputLabel>
-              <OutlinedInput label="Confirm Password" name="confirmPassword" type="password" />
+              <InputLabel>Confirm password</InputLabel>
+              <OutlinedInput label="Confirm password" name="confirmPassword" type="password" />
             </FormControl>
-
-            {/* Two-Factor Authentication */}
-            <FormControlLabel
-              control={<Switch name="twoFactorAuth" />}
-              label="Enable Two-Factor Authentication"
-            />
           </Stack>
         </CardContent>
         <Divider />
