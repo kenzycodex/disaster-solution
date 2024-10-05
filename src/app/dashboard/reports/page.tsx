@@ -15,7 +15,7 @@ import FloodIcon from '@mui/icons-material/Waves'; // Water waves to represent f
 import FireIcon from '@mui/icons-material/Fireplace'; // Fireplace for fire-related reports
 
 import { config } from '@/config';
-import { DisasterReportsFilters } from '@/components/dashboard/report/disaster-reports-filters'; // Updated filter component
+import { DisasterReportsFilters } from '@/components/dashboard/report/disaster-report-filters'; // Updated filter component
 import { DisasterReportsTable } from '@/components/dashboard/report/disaster-reports-table'; // Updated table component
 import type { DisasterReport } from '@/components/dashboard/report/disaster-reports-table';
 
